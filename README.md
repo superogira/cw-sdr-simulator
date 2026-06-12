@@ -46,6 +46,19 @@
 
 - [Node.js](https://nodejs.org/) >= 18
 - npm (included with Node.js)
+- git
+
+#### Installing Node.js (Ubuntu / Debian)
+
+```bash
+# Install Node.js 20.x via NodeSource
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs git
+
+# Verify installation
+node --version   # should be >= 18
+npm --version
+```
 
 ### Quick Start
 
@@ -304,6 +317,19 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 - [Node.js](https://nodejs.org/) เวอร์ชัน 18 ขึ้นไป
 - npm (ติดตั้งมาพร้อมกับ Node.js)
+- git
+
+#### ติดตั้ง Node.js (Ubuntu / Debian)
+
+```bash
+# ติดตั้ง Node.js 20.x ผ่าน NodeSource
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs git
+
+# ตรวจสอบเวอร์ชัน
+node --version   # ต้องเป็น >= 18
+npm --version
+```
 
 ### ขั้นตอนการติดตั้ง
 
