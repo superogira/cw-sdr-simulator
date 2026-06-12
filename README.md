@@ -14,6 +14,10 @@
 
 > 🌐 **Try it live:** [cw.e25wop.com](http://cw.e25wop.com)
 
+<p align="center">
+  <img src="cw-sdr-simulator.png" alt="CW SDR Simulator Screenshot" width="800">
+</p>
+
 ## 🌟 Features
 
 - **🎙️ Multi-user Real-time CW** — Send and receive Morse code with other operators live via WebSocket
@@ -267,6 +271,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 **แพลตฟอร์มฝึกฝนรหัสมอร์ส (CW) แบบหลายผู้ใช้** พร้อมส่วนติดต่อแบบ SDR (Software Defined Radio) บนเว็บไซต์ สามารถฝึกส่งและรับสัญญาณมอร์สโค้ดกับสถานีอื่น ๆ ทั่วโลกได้แบบเรียลไทม์ — รองรับทั้งมอร์สสากลและมอร์สภาษาไทย
 
 > 🌐 **ทดลองใช้งานได้ที่:** [cw.e25wop.com](http://cw.e25wop.com)
+
+<p align="center">
+  <img src="cw-sdr-simulator.png" alt="CW SDR Simulator Screenshot" width="800">
+</p>
 
 ## 🌟 คุณสมบัติเด่น
 
