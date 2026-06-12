@@ -51,8 +51,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/morse-sdr.git
-cd morse-sdr
+git clone https://github.com/superogira/cw-sdr-simulator.git
+cd cw-sdr-simulator
 
 # Install dependencies
 npm install
@@ -186,7 +186,7 @@ server {
 ## 📁 Project Structure
 
 ```
-morse-sdr/
+cw-sdr-simulator/
 ├── public/                  # Frontend (browser)
 │   ├── index.html           # Main HTML page
 │   ├── css/
@@ -309,8 +309,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ```bash
 # Clone repository
-git clone https://github.com/YOUR_USERNAME/morse-sdr.git
-cd morse-sdr
+git clone https://github.com/superogira/cw-sdr-simulator.git
+cd cw-sdr-simulator
 
 # ติดตั้ง dependencies
 npm install
