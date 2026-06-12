@@ -1,0 +1,23 @@
+{
+  "name": "cw-sdr",
+  "version": "1.0.0",
+  "description": "CW SDR - Morse Code Practice Platform with Waterfall Display",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js",
+    "pm2:start": "pm2 start server/ecosystem.config.js --env production",
+    "pm2:stop": "pm2 stop cw-sdr",
+    "pm2:restart": "pm2 reload cw-sdr",
+    "pm2:logs": "pm2 logs cw-sdr"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "socket.io": "^4.7.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "E25WOP",
+  "license": "MIT"
+}
