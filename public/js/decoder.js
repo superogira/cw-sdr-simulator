@@ -16,6 +16,13 @@ class MorseDecoder {
         this.language = 'international'; // 'international' or 'thai'
         this.panelVisible = true;
 
+        // Font scale (adjustable via A-/A+ buttons)
+        this.fontScale = 1.0;
+        this.FONT_SCALE_MIN = 0.7;
+        this.FONT_SCALE_MAX = 2.5;
+        this.FONT_SCALE_STEP = 0.15;
+        this.FONT_SCALE_KEY = 'cw-sdr-decoder-font-scale';
+
         // Decoder state per source: 'local' or remote userId
         this.sources = new Map();
     }
@@ -42,6 +49,12 @@ class MorseDecoder {
         if (this.toggleBtn) {
             this.toggleBtn.addEventListener('click', () => this.togglePanel());
         }
+
+        // Font scale buttons (work across all instances: mini + full)
+        this._initFontScale();
+
+        // Apply saved font scale
+        this._loadFontScale();
     }
 
     setLanguage(lang) {
@@ -280,6 +293,60 @@ class MorseDecoder {
         }
         if (this.toggleBtn) {
             this.toggleBtn.textContent = this.panelVisible ? '▼ Decoder' : '▲ Decoder';
+        }
+    }
+
+    // ── Font Scale Controls ───────────────────────────────
+
+    _initFontScale() {
+        // Bind all font-scale buttons across both mini and full decoders
+        const btns = document.querySelectorAll('.decoder-font-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const action = btn.dataset.fontAction;
+                if (action === 'increase') {
+                    this.setFontScale(this.fontScale + this.FONT_SCALE_STEP);
+                } else if (action === 'decrease') {
+                    this.setFontScale(this.fontScale - this.FONT_SCALE_STEP);
+                } else if (action === 'reset') {
+                    this.setFontScale(1.0);
+                }
+            });
+        });
+    }
+
+    _loadFontScale() {
+        try {
+            const saved = localStorage.getItem(this.FONT_SCALE_KEY);
+            if (saved) {
+                const val = parseFloat(saved);
+                if (!isNaN(val)) {
+                    this.setFontScale(val, false);
+                    return;
+                }
+            }
+        } catch (e) {
+            console.error('[Decoder] Failed to load font scale:', e);
+        }
+        this.setFontScale(1.0, false);
+    }
+
+    _saveFontScale() {
+        try {
+            localStorage.setItem(this.FONT_SCALE_KEY, this.fontScale.toString());
+        } catch (e) {
+            console.error('[Decoder] Failed to save font scale:', e);
+        }
+    }
+
+    setFontScale(scale, persist = true) {
+        // Clamp to valid range
+        this.fontScale = Math.max(this.FONT_SCALE_MIN, Math.min(this.FONT_SCALE_MAX, scale));
+        // Apply via CSS variable (affects both mini and full decoders)
+        document.documentElement.style.setProperty('--decoder-font-scale', this.fontScale.toFixed(2));
+        if (persist) {
+            this._saveFontScale();
+            console.log('[Decoder] Font scale set to:', this.fontScale.toFixed(2));
         }
     }
 

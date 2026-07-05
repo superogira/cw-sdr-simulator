@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css?v=29">
+    <link rel="stylesheet" href="/css/styles.css?v=30">
 </head>
 <body>
 
@@ -180,9 +180,15 @@
         <div class="mini-decoder" id="mini-decoder">
             <div class="mini-decoder-header">
                 <span class="panel-label">DECODER</span>
-                <div id="decoder-lang-select" class="decoder-lang-select">
-                    <button class="decoder-lang-btn active" data-lang="international">ENG</button>
-                    <button class="decoder-lang-btn" data-lang="thai">TH</button>
+                <div class="mini-decoder-controls">
+                    <div id="decoder-lang-select" class="decoder-lang-select">
+                        <button class="decoder-lang-btn active" data-lang="international">ENG</button>
+                        <button class="decoder-lang-btn" data-lang="thai">TH</button>
+                    </div>
+                    <div class="decoder-font-controls">
+                        <button class="decoder-font-btn" data-font-action="decrease" title="ย่อขนาดอักษร">A−</button>
+                        <button class="decoder-font-btn" data-font-action="increase" title="ขยายขนาดอักษร">A+</button>
+                    </div>
                 </div>
             </div>
             <div class="mini-decoder-output" id="mini-decoder-output">
@@ -210,6 +216,11 @@
     <div class="decoder-header">
         <button id="btn-toggle-decoder" class="decoder-toggle-btn">▼ CW Skimmer (Global)</button>
         <div class="decoder-controls">
+            <div class="decoder-font-controls">
+                <button class="decoder-font-btn" data-font-action="decrease" title="ย่อขนาดอักษร">A−</button>
+                <button class="decoder-font-btn" data-font-action="reset" title="ขนาดปกติ">A</button>
+                <button class="decoder-font-btn" data-font-action="increase" title="ขยายขนาดอักษร">A+</button>
+            </div>
             <label class="decoder-checkbox">
                 <input type="checkbox" id="decoder-auto-scroll" checked> Auto-scroll
             </label>
@@ -316,7 +327,7 @@
 <script src="/js/spectrum.js?v=26"></script>
 <script src="/js/vfo.js?v=26"></script>
 <script src="/js/keyer.js?v=33"></script>
-<script src="/js/decoder.js?v=32"></script>
+<script src="/js/decoder.js?v=33"></script>
 <script src="/js/smeter.js?v=26"></script>
 <script src="/js/chat.js?v=26"></script>
 <script src="/js/interference.js?v=26"></script>

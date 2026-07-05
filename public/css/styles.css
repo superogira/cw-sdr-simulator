@@ -36,6 +36,9 @@
     /* Fonts */
     --font-mono: 'JetBrains Mono', 'Courier New', monospace;
     --font-ui: 'Inter', -apple-system, sans-serif;
+
+    /* Decoder font scale (adjustable via A-/A+ buttons) */
+    --decoder-font-scale: 1;
 }
 
 /* ── Reset & Base ──────────────────────────────────────────── */
@@ -890,7 +893,7 @@ html, body {
     height: 60px;
     overflow-y: auto;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: calc(0.7rem * var(--decoder-font-scale));
     color: var(--accent);
     line-height: 1.4;
 }
@@ -907,6 +910,48 @@ html, body {
 .decode-callsign {
     color: var(--warning-yellow);
     font-weight: 600;
+}
+
+/* ── Decoder Font Controls ─────────────────────────────────── */
+.mini-decoder-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.decoder-font-controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 1px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid #1a2535;
+    border-radius: 3px;
+}
+
+.decoder-font-btn {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.decoder-font-btn:hover {
+    color: var(--accent);
+    background: rgba(0, 255, 136, 0.08);
+}
+
+.decoder-font-btn:active {
+    transform: scale(0.92);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1071,7 +1116,7 @@ html, body {
     padding: 8px 12px;
     overflow-y: auto;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: calc(0.8rem * var(--decoder-font-scale));
     color: var(--accent);
     line-height: 1.5;
 }
@@ -1085,13 +1130,14 @@ html, body {
 .decode-header {
     color: var(--warning-yellow);
     font-weight: 700;
-    font-size: 0.75rem;
+    font-size: calc(0.75rem * var(--decoder-font-scale));
     margin-bottom: 2px;
 }
 
 .decode-text {
     color: var(--accent);
     word-break: break-all;
+    font-size: calc(0.85rem * var(--decoder-font-scale));
 }
 
 /* ═══════════════════════════════════════════════════════════════
