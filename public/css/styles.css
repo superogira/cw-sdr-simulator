@@ -59,6 +59,13 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Use dynamic viewport height on mobile to avoid browser nav bar overlap */
+@supports (height: 100dvh) {
+    html, body {
+        height: 100dvh;
+    }
+}
+
 .hidden {
     display: none !important;
 }
@@ -1714,17 +1721,25 @@ body.status-collapsed.skimmer-collapsed .radio-chassis {
 
 @media (max-width: 768px) {
     .radio-chassis {
-        height: auto;
-        min-height: auto;
+        height: 100vh;
+        min-height: 0;
+    }
+    @supports (height: 100dvh) {
+        .radio-chassis {
+            height: 100dvh;
+        }
     }
     .radio-body {
         flex-direction: column;
+        flex: 1;
+        min-height: 0;
     }
     .left-panel {
         width: 100%;
         flex-direction: row;
         border-right: none;
         border-bottom: 1px solid #2a2a2a;
+        flex-shrink: 0;
     }
     .smeter-panel {
         flex: 1;
@@ -1732,22 +1747,27 @@ body.status-collapsed.skimmer-collapsed .radio-chassis {
     .vfo-panel {
         flex: 1;
     }
+    /* Waterfall expands to fill available space */
     .display-panel {
-        height: 120px;
-        flex: none;
+        flex: 1;
+        height: auto;
+        min-height: 120px;
     }
-    /* Mobile: expand waterfall when panels collapsed */
-    body.status-collapsed .display-panel { height: 180px; }
-    body.skimmer-collapsed .display-panel { height: 280px; }
-    body.status-collapsed.skimmer-collapsed .display-panel { height: 360px; }
+    /* Collapsed panels give more space to waterfall */
+    body.status-collapsed .display-panel { min-height: 180px; }
+    body.skimmer-collapsed .display-panel { min-height: 280px; }
+    body.status-collapsed.skimmer-collapsed .display-panel { min-height: 360px; }
     .control-panel {
         flex-wrap: wrap;
+        flex-shrink: 0;
         padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     }
     .status-bar {
+        flex-shrink: 0;
         padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
     }
     .decoder-panel {
+        flex-shrink: 0;
         padding-bottom: env(safe-area-inset-bottom, 0px);
     }
     .decoder-panel.collapsed {
