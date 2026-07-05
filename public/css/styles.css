@@ -37,8 +37,9 @@
     --font-mono: 'JetBrains Mono', 'Courier New', monospace;
     --font-ui: 'Inter', -apple-system, sans-serif;
 
-    /* Decoder font scale (adjustable via A-/A+ buttons) */
-    --decoder-font-scale: 1;
+    /* Decoder font scale (adjustable via A-/A+ buttons, separate) */
+    --mini-font-scale: 1;
+    --skimmer-font-scale: 1;
 }
 
 /* ── Reset & Base ──────────────────────────────────────────── */
@@ -893,7 +894,7 @@ html, body {
     height: 60px;
     overflow-y: auto;
     font-family: var(--font-mono);
-    font-size: calc(0.7rem * var(--decoder-font-scale));
+    font-size: calc(0.7rem * var(--mini-font-scale));
     color: var(--accent);
     line-height: 1.4;
 }
@@ -1123,7 +1124,7 @@ html, body {
     padding: 8px 12px;
     overflow-y: auto;
     font-family: var(--font-mono);
-    font-size: calc(0.8rem * var(--decoder-font-scale));
+    font-size: calc(0.8rem * var(--skimmer-font-scale));
     color: var(--accent);
     line-height: 1.5;
 }
@@ -1137,14 +1138,14 @@ html, body {
 .decode-header {
     color: var(--warning-yellow);
     font-weight: 700;
-    font-size: calc(0.75rem * var(--decoder-font-scale));
+    font-size: calc(0.75rem * var(--skimmer-font-scale));
     margin-bottom: 2px;
 }
 
 .decode-text {
     color: var(--accent);
     word-break: break-all;
-    font-size: calc(0.85rem * var(--decoder-font-scale));
+    font-size: calc(0.85rem * var(--skimmer-font-scale));
 }
 
 /* ═══════════════════════════════════════════════════════════════

@@ -16,12 +16,14 @@ class MorseDecoder {
         this.language = 'international'; // 'international' or 'thai'
         this.panelVisible = true;
 
-        // Font scale (adjustable via A-/A+ buttons)
-        this.fontScale = 1.0;
+        // Font scale (adjustable via A-/A+ buttons, separate for mini & skimmer)
+        this.miniFontScale = 1.0;
+        this.skimmerFontScale = 1.0;
         this.FONT_SCALE_MIN = 0.7;
         this.FONT_SCALE_MAX = 2.5;
         this.FONT_SCALE_STEP = 0.15;
-        this.FONT_SCALE_KEY = 'cw-sdr-decoder-font-scale';
+        this.MINI_FONT_SCALE_KEY = 'cw-sdr-mini-font-scale';
+        this.SKIMMER_FONT_SCALE_KEY = 'cw-sdr-skimmer-font-scale';
 
         // Decoder state per source: 'local' or remote userId
         this.sources = new Map();
@@ -50,11 +52,11 @@ class MorseDecoder {
             this.toggleBtn.addEventListener('click', () => this.togglePanel());
         }
 
-        // Font scale buttons (work across all instances: mini + full)
+        // Font scale buttons (separate controls for mini & skimmer)
         this._initFontScale();
 
-        // Apply saved font scale
-        this._loadFontScale();
+        // Apply saved font scales
+        this._loadFontScales();
     }
 
     setLanguage(lang) {
@@ -296,57 +298,78 @@ class MorseDecoder {
         }
     }
 
-    // ── Font Scale Controls ───────────────────────────────
+    // ── Font Scale Controls (separate for Mini & Skimmer) ──
 
     _initFontScale() {
-        // Bind all font-scale buttons across both mini and full decoders
+        // Bind all font-scale buttons; target determined by data-font-target
         const btns = document.querySelectorAll('.decoder-font-btn');
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const action = btn.dataset.fontAction;
+                const target = btn.dataset.fontTarget || 'mini'; // 'mini' or 'skimmer'
                 if (action === 'increase') {
-                    this.setFontScale(this.fontScale + this.FONT_SCALE_STEP);
+                    this.adjustFontScale(target, this.FONT_SCALE_STEP);
                 } else if (action === 'decrease') {
-                    this.setFontScale(this.fontScale - this.FONT_SCALE_STEP);
+                    this.adjustFontScale(target, -this.FONT_SCALE_STEP);
                 } else if (action === 'reset') {
-                    this.setFontScale(1.0);
+                    this.setFontScale(target, 1.0);
                 }
             });
         });
     }
 
-    _loadFontScale() {
+    _loadFontScales() {
+        // Load mini
+        let miniVal = 1.0;
         try {
-            const saved = localStorage.getItem(this.FONT_SCALE_KEY);
-            if (saved) {
-                const val = parseFloat(saved);
-                if (!isNaN(val)) {
-                    this.setFontScale(val, false);
-                    return;
-                }
+            const savedMini = localStorage.getItem(this.MINI_FONT_SCALE_KEY);
+            if (savedMini) {
+                const v = parseFloat(savedMini);
+                if (!isNaN(v)) miniVal = v;
             }
-        } catch (e) {
-            console.error('[Decoder] Failed to load font scale:', e);
-        }
-        this.setFontScale(1.0, false);
-    }
+        } catch (e) { console.error('[Decoder] Failed to load mini font scale:', e); }
+        this.setFontScale('mini', miniVal, false);
 
-    _saveFontScale() {
+        // Load skimmer
+        let skimmerVal = 1.0;
         try {
-            localStorage.setItem(this.FONT_SCALE_KEY, this.fontScale.toString());
-        } catch (e) {
-            console.error('[Decoder] Failed to save font scale:', e);
-        }
+            const savedSkimmer = localStorage.getItem(this.SKIMMER_FONT_SCALE_KEY);
+            if (savedSkimmer) {
+                const v = parseFloat(savedSkimmer);
+                if (!isNaN(v)) skimmerVal = v;
+            }
+        } catch (e) { console.error('[Decoder] Failed to load skimmer font scale:', e); }
+        this.setFontScale('skimmer', skimmerVal, false);
     }
 
-    setFontScale(scale, persist = true) {
+    adjustFontScale(target, delta) {
+        const current = target === 'skimmer' ? this.skimmerFontScale : this.miniFontScale;
+        this.setFontScale(target, current + delta);
+    }
+
+    setFontScale(target, scale, persist = true) {
         // Clamp to valid range
-        this.fontScale = Math.max(this.FONT_SCALE_MIN, Math.min(this.FONT_SCALE_MAX, scale));
-        // Apply via CSS variable (affects both mini and full decoders)
-        document.documentElement.style.setProperty('--decoder-font-scale', this.fontScale.toFixed(2));
-        if (persist) {
-            this._saveFontScale();
-            console.log('[Decoder] Font scale set to:', this.fontScale.toFixed(2));
+        scale = Math.max(this.FONT_SCALE_MIN, Math.min(this.FONT_SCALE_MAX, scale));
+
+        if (target === 'skimmer') {
+            this.skimmerFontScale = scale;
+            document.documentElement.style.setProperty('--skimmer-font-scale', scale.toFixed(2));
+            if (persist) {
+                try {
+                    localStorage.setItem(this.SKIMMER_FONT_SCALE_KEY, scale.toString());
+                } catch (e) { console.error('[Decoder] Failed to save skimmer font scale:', e); }
+                console.log('[Decoder] Skimmer font scale set to:', scale.toFixed(2));
+            }
+        } else {
+            // mini
+            this.miniFontScale = scale;
+            document.documentElement.style.setProperty('--mini-font-scale', scale.toFixed(2));
+            if (persist) {
+                try {
+                    localStorage.setItem(this.MINI_FONT_SCALE_KEY, scale.toString());
+                } catch (e) { console.error('[Decoder] Failed to save mini font scale:', e); }
+                console.log('[Decoder] Mini font scale set to:', scale.toFixed(2));
+            }
         }
     }
 
