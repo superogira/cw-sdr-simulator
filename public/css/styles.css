@@ -771,6 +771,51 @@ html, body {
     text-align: center;
 }
 
+/* ── S-Meter Bar (under knobs) ─────────────────────────── */
+.smeter-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 8px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--screen-border);
+    border-radius: 4px;
+}
+
+.smeter-bar-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.smeter-bar-track {
+    width: 100px;
+    height: 8px;
+    background: #0a0a0a;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #222;
+}
+
+.smeter-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ff88 0%, #ffcc00 60%, #ff4444 100%);
+    border-radius: 3px;
+    transition: width 0.1s ease-out;
+}
+
+.smeter-bar-value {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 32px;
+    text-align: right;
+}
+
 /* ── CW Key ────────────────────────────────────────────────── */
 .key-section {
     display: flex;

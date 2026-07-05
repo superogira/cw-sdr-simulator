@@ -9,16 +9,37 @@ class SMeter {
         this.currentValue = 0;
         this.lastTime = performance.now();
         this.animFrame = null;
-        
+
+        // S-Meter bar elements (optional, under knobs)
+        this.barFill = document.getElementById('smeter-bar-fill');
+        this.barValue = document.getElementById('smeter-bar-value');
+
         this._startLoop();
     }
 
     /**
-     * Set the target value for the meter
-     * @param {number} sUnits - Value from 0 to 13
-     */
+      * Set the target value for the meter
+      * @param {number} sUnits - Value from 0 to 13
+      */
     setValue(sUnits) {
         this.targetValue = Math.max(0, Math.min(13, sUnits));
+    }
+
+    /**
+     * Update the S-Meter bar (0-13 → 0-100%)
+     */
+    _updateBar() {
+        if (!this.barFill || !this.barValue) return;
+        const pct = (this.currentValue / 13) * 100;
+        this.barFill.style.width = pct.toFixed(0) + '%';
+        // Format: S0-S9, then +10, +20...
+        let label;
+        if (this.currentValue <= 9) {
+            label = 'S' + Math.round(this.currentValue);
+        } else {
+            label = '+' + Math.round((this.currentValue - 9) * 20);
+        }
+        this.barValue.textContent = label;
     }
 
     _startLoop() {
@@ -30,8 +51,9 @@ class SMeter {
             
             // Fix any NaN state just in case
             if (isNaN(this.currentValue)) this.currentValue = 0;
-            
+
             this._draw();
+            this._updateBar();
         };
         this.animFrame = requestAnimationFrame(loop);
     }

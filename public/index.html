@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css?v=38">
+    <link rel="stylesheet" href="/css/styles.css?v=39">
 </head>
 <body>
 
@@ -161,6 +161,14 @@
                 <div class="knob-label">TONE</div>
                 <div class="knob"><div class="knob-indicator"></div></div>
                 <div class="knob-value">700Hz</div>
+            </div>
+            <!-- S-Meter Bar (below knobs) -->
+            <div class="smeter-bar-container">
+                <div class="smeter-bar-label">S</div>
+                <div class="smeter-bar-track">
+                    <div class="smeter-bar-fill" id="smeter-bar-fill"></div>
+                </div>
+                <div class="smeter-bar-value" id="smeter-bar-value">S0</div>
             </div>
         </div>
 
@@ -331,7 +339,7 @@
 <script src="/js/vfo.js?v=26"></script>
 <script src="/js/keyer.js?v=33"></script>
 <script src="/js/decoder.js?v=37"></script>
-<script src="/js/smeter.js?v=26"></script>
+<script src="/js/smeter.js?v=27"></script>
 <script src="/js/chat.js?v=26"></script>
 <script src="/js/interference.js?v=26"></script>
 <script src="/js/settings.js?v=33"></script>
