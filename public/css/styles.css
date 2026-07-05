@@ -821,6 +821,27 @@ html, body {
     text-align: right;
 }
 
+/* S-Meter Bar scale marks */
+.smeter-bar-wrapper {
+    margin-top: 6px;
+}
+
+.smeter-bar-scale {
+    position: relative;
+    height: 12px;
+    margin-top: 2px;
+    padding: 0 20px 0 16px; /* align with bar track (label + gap offset) */
+}
+
+.smeter-bar-scale span {
+    position: absolute;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    color: var(--text-dim);
+    top: 0;
+}
+
 /* ── CW Key ────────────────────────────────────────────────── */
 .key-section {
     display: flex;
