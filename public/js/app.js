@@ -124,11 +124,14 @@ class App {
         this.chat = new ChatManager(this.network);
         this.chat.init(callsign);
 
-        // 17. Handle resize
+        // 17. Status Bar Toggle (collapse/expand)
+        this._setupStatusBarToggle();
+
+        // 18. Handle resize
         window.addEventListener('resize', () => this._handleResize());
         this._handleResize();
 
-        // 18. Start Interference Simulator (Birdies)
+        // 19. Start Interference Simulator (Birdies)
         this.interference = new InterferenceSimulator(this.audioEngine, this.waterfall, this.vfo);
         this.interference.start();
 
@@ -390,6 +393,32 @@ class App {
 
     _handleResize() {
         if (this.waterfall) this.waterfall.resize();
+    }
+
+    // ── Status Bar Toggle ─────────────────────────────────
+    _setupStatusBarToggle() {
+        const btn = document.getElementById('btn-toggle-status');
+        const bar = document.getElementById('status-bar');
+        if (!btn || !bar) return;
+
+        const KEY = 'cw-sdr-status-collapsed';
+        // Load saved state
+        try {
+            if (localStorage.getItem(KEY) === 'true') {
+                bar.classList.add('collapsed');
+                btn.textContent = '▲';
+            }
+        } catch (e) { /* ignore */ }
+
+        btn.addEventListener('click', () => {
+            const collapsed = bar.classList.toggle('collapsed');
+            btn.textContent = collapsed ? '▲' : '▼';
+            try {
+                localStorage.setItem(KEY, collapsed.toString());
+            } catch (e) { /* ignore */ }
+            // Trigger waterfall resize after layout settles
+            setTimeout(() => this._handleResize(), 50);
+        });
     }
 
     destroy() {

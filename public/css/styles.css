@@ -1040,6 +1040,49 @@ html, body {
     font-family: var(--font-mono);
     font-size: 0.6rem;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-toggle-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--accent);
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-toggle-btn:hover {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--accent);
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.3);
+}
+
+.status-bar.collapsed {
+    height: 24px;
+    overflow: hidden;
+    padding: 2px 12px;
+}
+
+.status-bar.collapsed .status-left,
+.status-bar.collapsed .status-right > :not(.status-toggle-btn) {
+    display: none;
+}
+
+.status-bar.collapsed .status-toggle-btn::before {
+    content: '▲';
 }
 
 /* ═══════════════════════════════════════════════════════════════

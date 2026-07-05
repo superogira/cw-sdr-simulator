@@ -57,6 +57,9 @@ class MorseDecoder {
 
         // Apply saved font scales
         this._loadFontScales();
+
+        // Restore skimmer panel collapse state
+        this._loadPanelState();
     }
 
     setLanguage(lang) {
@@ -294,8 +297,29 @@ class MorseDecoder {
             this.panel.classList.toggle('collapsed', !this.panelVisible);
         }
         if (this.toggleBtn) {
-            this.toggleBtn.textContent = this.panelVisible ? '▼ Decoder' : '▲ Decoder';
+            this.toggleBtn.textContent = this.panelVisible ? '▼ CW Skimmer (Global)' : '▲ CW Skimmer (Global)';
         }
+        // Persist state
+        try {
+            localStorage.setItem('cw-sdr-skimmer-collapsed', (!this.panelVisible).toString());
+        } catch (e) { /* ignore */ }
+        // Trigger waterfall resize via app
+        if (window.app && window.app._handleResize) {
+            setTimeout(() => window.app._handleResize(), 50);
+        }
+    }
+
+    _loadPanelState() {
+        try {
+            const collapsed = localStorage.getItem('cw-sdr-skimmer-collapsed') === 'true';
+            if (collapsed) {
+                this.panelVisible = false;
+                if (this.panel) this.panel.classList.add('collapsed');
+                if (this.toggleBtn) {
+                    this.toggleBtn.textContent = '▲ CW Skimmer (Global)';
+                }
+            }
+        } catch (e) { /* ignore */ }
     }
 
     // ── Font Scale Controls (separate for Mini & Skimmer) ──

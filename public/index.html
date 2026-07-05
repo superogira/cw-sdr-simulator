@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css?v=32">
+    <link rel="stylesheet" href="/css/styles.css?v=33">
 </head>
 <body>
 
@@ -199,13 +199,14 @@
     </div>
 
     <!-- ── Status Bar ────────────────────────────────────── -->
-    <div class="status-bar">
+    <div class="status-bar" id="status-bar">
         <div class="status-left">
             <span class="status-label">📡 Online:</span>
             <div id="online-users-list" class="online-users-list"></div>
         </div>
         <div class="status-right">
             <span class="status-item">CW SDR Practice Platform — E25WOP</span>
+            <button id="btn-toggle-status" class="status-toggle-btn" title="ซ่อน/แสดง Online Users">▼</button>
         </div>
     </div>
 </div>
@@ -328,12 +329,12 @@
 <script src="/js/spectrum.js?v=26"></script>
 <script src="/js/vfo.js?v=26"></script>
 <script src="/js/keyer.js?v=33"></script>
-<script src="/js/decoder.js?v=34"></script>
+<script src="/js/decoder.js?v=35"></script>
 <script src="/js/smeter.js?v=26"></script>
 <script src="/js/chat.js?v=26"></script>
 <script src="/js/interference.js?v=26"></script>
 <script src="/js/settings.js?v=33"></script>
-<script src="/js/app.js?v=26"></script>
+<script src="/js/app.js?v=27"></script>
 
 </body>
 </html>
