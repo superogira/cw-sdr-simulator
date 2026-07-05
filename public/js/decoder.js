@@ -60,6 +60,9 @@ class MorseDecoder {
 
         // Restore skimmer panel collapse state
         this._loadPanelState();
+
+        // Mini decoder expand toggle
+        this._initExpandToggle();
     }
 
     setLanguage(lang) {
@@ -310,6 +313,35 @@ class MorseDecoder {
         if (window.app && window.app._handleResize) {
             setTimeout(() => window.app._handleResize(), 100);
         }
+    }
+
+    // ── Mini Decoder Expand Toggle ────────────────────────
+    _initExpandToggle() {
+        const btn = document.getElementById('btn-mini-expand');
+        const decoder = document.getElementById('mini-decoder');
+        if (!btn || !decoder) return;
+
+        const KEY = 'cw-sdr-mini-expanded';
+        // Load saved state
+        try {
+            if (localStorage.getItem(KEY) === 'true') {
+                decoder.classList.add('expanded');
+                btn.textContent = '⛶';
+                btn.title = 'ย่อ Decoder กลับ';
+            }
+        } catch (e) { /* ignore */ }
+
+        btn.addEventListener('click', () => {
+            const expanded = decoder.classList.toggle('expanded');
+            btn.title = expanded ? 'ย่อ Decoder กลับ' : 'ขยาย Decoder เต็มบรรทัด';
+            try {
+                localStorage.setItem(KEY, expanded.toString());
+            } catch (e) { /* ignore */ }
+            // Trigger waterfall resize
+            if (window.app && window.app._handleResize) {
+                setTimeout(() => window.app._handleResize(), 100);
+            }
+        });
     }
 
     _loadPanelState() {

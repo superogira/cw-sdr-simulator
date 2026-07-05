@@ -855,6 +855,43 @@ html, body {
     border: 1px solid var(--screen-border);
     border-radius: 4px;
     overflow: hidden;
+    transition: flex-basis 0.2s;
+}
+
+/* Expanded mode: full width on new line */
+.mini-decoder.expanded {
+    flex-basis: 100%;
+    order: 99;
+    margin-top: 8px;
+}
+
+.mini-decoder.expanded .mini-decoder-output {
+    height: 120px;
+}
+
+.mini-expand-btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--accent);
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mini-expand-btn:hover {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--accent);
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.3);
 }
 
 .mini-decoder-header {
