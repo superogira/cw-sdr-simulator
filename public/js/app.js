@@ -406,18 +406,20 @@ class App {
         try {
             if (localStorage.getItem(KEY) === 'true') {
                 bar.classList.add('collapsed');
+                document.body.classList.add('status-collapsed');
                 btn.textContent = '▲';
             }
         } catch (e) { /* ignore */ }
 
         btn.addEventListener('click', () => {
             const collapsed = bar.classList.toggle('collapsed');
+            document.body.classList.toggle('status-collapsed', collapsed);
             btn.textContent = collapsed ? '▲' : '▼';
             try {
                 localStorage.setItem(KEY, collapsed.toString());
             } catch (e) { /* ignore */ }
             // Trigger waterfall resize after layout settles
-            setTimeout(() => this._handleResize(), 50);
+            setTimeout(() => this._handleResize(), 100);
         });
     }
 

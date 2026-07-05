@@ -293,19 +293,22 @@ class MorseDecoder {
 
     togglePanel() {
         this.panelVisible = !this.panelVisible;
+        const collapsed = !this.panelVisible;
         if (this.panel) {
-            this.panel.classList.toggle('collapsed', !this.panelVisible);
+            this.panel.classList.toggle('collapsed', collapsed);
         }
         if (this.toggleBtn) {
             this.toggleBtn.textContent = this.panelVisible ? '▼ CW Skimmer (Global)' : '▲ CW Skimmer (Global)';
         }
+        // Toggle body class for chassis height adjustment
+        document.body.classList.toggle('skimmer-collapsed', collapsed);
         // Persist state
         try {
-            localStorage.setItem('cw-sdr-skimmer-collapsed', (!this.panelVisible).toString());
+            localStorage.setItem('cw-sdr-skimmer-collapsed', collapsed.toString());
         } catch (e) { /* ignore */ }
         // Trigger waterfall resize via app
         if (window.app && window.app._handleResize) {
-            setTimeout(() => window.app._handleResize(), 50);
+            setTimeout(() => window.app._handleResize(), 100);
         }
     }
 
@@ -318,6 +321,7 @@ class MorseDecoder {
                 if (this.toggleBtn) {
                     this.toggleBtn.textContent = '▲ CW Skimmer (Global)';
                 }
+                document.body.classList.add('skimmer-collapsed');
             }
         } catch (e) { /* ignore */ }
     }

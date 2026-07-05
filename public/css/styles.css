@@ -1081,8 +1081,22 @@ html, body {
     display: none;
 }
 
-.status-bar.collapsed .status-toggle-btn::before {
-    content: '▲';
+/* Dynamic chassis height based on collapse state */
+/* Default: status visible + skimmer visible = 200px offset */
+.radio-chassis {
+    height: calc(100vh - 200px);
+}
+/* Status collapsed: +24px */
+body.status-collapsed .radio-chassis {
+    height: calc(100vh - 176px);
+}
+/* Skimmer collapsed: +168px (200-32) */
+body.skimmer-collapsed .radio-chassis {
+    height: calc(100vh - 32px);
+}
+/* Both collapsed: +192px */
+body.status-collapsed.skimmer-collapsed .radio-chassis {
+    height: calc(100vh - 32px);
 }
 
 /* ═══════════════════════════════════════════════════════════════
