@@ -439,7 +439,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    cursor: ns-resize;
+    cursor: default;
 }
 
 .vfo-indicators {
@@ -1743,6 +1743,9 @@ body.status-collapsed.skimmer-collapsed .radio-chassis {
     }
     .smeter-panel {
         flex: 1;
+    }
+    .smeter-panel canvas {
+        height: 80px;
     }
     .vfo-panel {
         flex: 1;
