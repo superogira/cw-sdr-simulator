@@ -1699,8 +1699,22 @@ body.status-collapsed.skimmer-collapsed .radio-chassis {
         height: 120px;
         flex: none;
     }
+    /* Mobile: expand waterfall when panels collapsed */
+    body.status-collapsed .display-panel { height: 180px; }
+    body.skimmer-collapsed .display-panel { height: 280px; }
+    body.status-collapsed.skimmer-collapsed .display-panel { height: 360px; }
     .control-panel {
         flex-wrap: wrap;
+        padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    }
+    .status-bar {
+        padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+    }
+    .decoder-panel {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .decoder-panel.collapsed {
+        padding-bottom: 0;
     }
     .band-btn {
         font-size: 0.6rem;
